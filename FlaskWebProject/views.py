@@ -11,7 +11,6 @@ from FlaskWebProject import app, db
 from FlaskWebProject.forms import LoginForm, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
 from FlaskWebProject.models import User, Post
-from FlaskWebProject import logger
 import msal
 import uuid
 
@@ -63,14 +62,12 @@ def post(id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        logger.warning('Admin logged in successfully')
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            logger.warning('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -105,9 +102,6 @@ def authorized():
         login_user(user)
         _save_cache(cache)
 
-
-    	#PhuDT3
-        logger.warning('Admin logged in successfully')
     return redirect(url_for('home'))
 
 @app.route('/logout')

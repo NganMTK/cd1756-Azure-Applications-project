@@ -7,7 +7,7 @@ cffi==1.16.0
 chardet==5.2.0
 Click==8.1.7
 cryptography==41.0.5
-Flask==3.0.2
+Flask==2.2.5
 Flask-Login==0.6.3
 Flask-Session==0.6.0
 Flask-SQLAlchemy==3.1.1
@@ -28,5 +28,5 @@ setuptools==58.1.0
 six==1.16.0
 SQLAlchemy==2.0.25
 urllib3==2.2.0
-Werkzeug==3.0.1
+Werkzeug==2.2.2
 WTForms==3.1.2

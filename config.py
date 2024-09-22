@@ -6,8 +6,9 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'
 
     BLOB_ACCOUNT = os.environ.get('BLOB_ACCOUNT') or 'flaskimages'
-    BLOB_STORAGE_KEY = os.environ.get('BLOB_STORAGE_KEY') or 'blob-storage-key'
+    BLOB_STORAGE_KEY = os.environ.get('BLOB_STORAGE_KEY') or ''
     BLOB_CONTAINER = os.environ.get('BLOB_CONTAINER') or 'images'
+    BLOB_CONNECTIONSTRING = os.environ.get('BLOB_CONECTIONSTRING') or ""
 
     SQL_SERVER = os.environ.get('SQL_SERVER') or 'flask-app.database.windows.net'
     SQL_DATABASE = os.environ.get('SQL_DATABASE') or 'flask-db'

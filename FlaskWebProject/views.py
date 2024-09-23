@@ -13,6 +13,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from FlaskWebProject.models import User, Post
 import msal
 import uuid
+from FlaskWebProject import logger
 
 imageSourceUrl = 'https://'+ app.config['BLOB_ACCOUNT']  + '.blob.core.windows.net/' + app.config['BLOB_CONTAINER']  + '/'
 
@@ -62,12 +63,14 @@ def post(id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
+        logger.info('Admin logged in successfully')
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
+            logger.warning('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -102,6 +105,7 @@ def authorized():
         login_user(user)
         _save_cache(cache)
 
+    logger.info('Login successfully!')
     return redirect(url_for('home'))
 
 @app.route('/logout')
